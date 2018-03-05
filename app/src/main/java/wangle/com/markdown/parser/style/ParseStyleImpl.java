@@ -1,10 +1,12 @@
 package wangle.com.markdown.parser.style;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.text.style.URLSpan;
 
 import wangle.com.markdown.parser.style.span.FontSpan;
@@ -70,15 +72,17 @@ public class ParseStyleImpl implements IParseStyle{
 
     @Override
     public SpannableStringBuilder parseImage(CharSequence title,CharSequence url) {
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(title);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(title.toString());
 
+        ImageSpan imageSpan = new ImageSpan(new ColorDrawable(Color.TRANSPARENT),url.toString(),ImageSpan.ALIGN_BASELINE);
+        spannableStringBuilder.setSpan(imageSpan,0,spannableStringBuilder.length(),Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         return spannableStringBuilder;
     }
 
     @Override
     public SpannableStringBuilder parseLink(CharSequence title, CharSequence url) {
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(title);
-        spannableStringBuilder.setSpan(new URLSpan(url.toString()), 0, spannableStringBuilder.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        spannableStringBuilder.setSpan(new URLSpan(url.toString()), 0, spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return spannableStringBuilder;
     }
 

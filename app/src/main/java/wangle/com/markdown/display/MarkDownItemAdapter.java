@@ -4,9 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -22,10 +26,11 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
     private List<Spannable> mData;
     public class ViewHolder extends RecyclerView.ViewHolder {
         private MyAppCompatTextView mTextView;
-
+        private ProgressBar mProgressBar;
         public ViewHolder(View view) {
             super(view);
             mTextView = view.findViewById(R.id.textView);
+            mProgressBar = view.findViewById(R.id.progressBar);
         }
     }
 
@@ -45,11 +50,16 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
         holder.mTextView.setText(mData.get(position));
         // 在单击链接时凡是有要执行的动作，都必须设置MovementMethod对象
         holder.mTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        /*String url = "https://static.baydn.com/media/media_store/image/f1672263006c6e28bb9dee7652fa4cf6.jpg";
-        Glide.with(holder.itemView.getContext())
-                .load(url)
-                .into(holder.mTextView.getTarget());
-*/
+        //自定义Glide ViewTarget 实现ImageSpan后台线程填充
+        ImageSpan[] imageSpans = mData.get(position).getSpans(0, mData.get(position).length(), ImageSpan.class);
+        for (ImageSpan imageSpan : imageSpans){
+            holder.mProgressBar.setVisibility(View.VISIBLE);
+            holder.mTextView.setProgressBar(holder.mProgressBar);
+            Glide.with(holder.itemView.getContext())
+                    .load(imageSpan.getSource())
+                    .into(holder.mTextView.getTarget());
+        }
+
     }
 
     @Override
