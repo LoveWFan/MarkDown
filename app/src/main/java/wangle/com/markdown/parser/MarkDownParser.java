@@ -18,8 +18,12 @@ import wangle.com.markdown.util.DeviceUtils;
  * Created by 忘了12138 on 2018/3/1.
  */
 
+/**
+ * MarkDown解析
+ */
 public class MarkDownParser {
     private BufferedReader mBufferedReader;
+    //解析md文件 标签 的实现类
     private ParseTagImpl mParseTagImpl;
     MarkDownParser(BufferedReader mBufferedReader) {
         this.mBufferedReader = mBufferedReader;
@@ -71,10 +75,20 @@ public class MarkDownParser {
         return spannableList;
     }
 
+    /**
+     * 解析每一行的格式
+     * @param line 代表每一行
+     * @return Spannable供TextView显示
+     */
     private Spannable parseStyle(Line line) {
         return line.getStyle();
     }
 
+    /**
+     * 读取md文件，收集每一行的信息
+     * @return 包含每一行信息的列表
+     * @throws IOException
+     */
     private List<Line> collect() throws IOException{
         String lineSource;
         int lintCount=0;

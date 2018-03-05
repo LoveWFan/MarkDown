@@ -9,6 +9,10 @@ import android.view.WindowManager;
  * Created by 忘了12138 on 2018/3/1.
  */
 
+/**
+ * 获取设备信息的工具类
+ */
+
 public class DeviceUtils {
 
 

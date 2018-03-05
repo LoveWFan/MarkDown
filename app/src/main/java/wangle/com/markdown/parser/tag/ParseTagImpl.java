@@ -13,7 +13,10 @@ import wangle.com.markdown.parser.style.ParseStyleImpl;
 /**
  * Created by 忘了12138 on 2018/3/1.
  */
-
+/**
+ * 解析md文件 标签 的接口
+ *
+ */
 public class ParseTagImpl implements IParseTag {
 
 

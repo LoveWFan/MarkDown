@@ -5,7 +5,9 @@ import android.text.SpannableStringBuilder;
 /**
  * Created by 忘了12138 on 2018/3/2.
  */
-
+/**
+ * 创建 标签 对应 格式 的接口
+ */
 public interface IParseStyle {
 
     SpannableStringBuilder parseH1(CharSequence charSequence);

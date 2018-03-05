@@ -6,6 +6,10 @@ import wangle.com.markdown.parser.line.Line;
  * Created by 忘了12138 on 2018/3/1.
  */
 
+/**
+ * 解析md文件 标签 的接口
+ *
+ */
 public interface IParseTag {
     public static final int NORMAL = 0;// 普通文本
     public static final int H1 = 1;// H1

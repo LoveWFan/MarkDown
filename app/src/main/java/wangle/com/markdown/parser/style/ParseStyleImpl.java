@@ -13,7 +13,9 @@ import wangle.com.markdown.parser.style.span.MyBulletSpan;
 /**
  * Created by 忘了12138 on 2018/3/2.
  */
-
+/**
+ * 创建 标签 对应 格式 的实现类
+ */
 public class ParseStyleImpl implements IParseStyle{
     public static final float NORMAL_SCALEFACTOR = 1.0f; // H3
     public static final float H1_SCALEFACTOR = 2.5f; // H1
