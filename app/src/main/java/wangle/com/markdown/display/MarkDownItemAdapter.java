@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 import wangle.com.markdown.R;
@@ -47,11 +45,11 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
         holder.mTextView.setText(mData.get(position));
         // 在单击链接时凡是有要执行的动作，都必须设置MovementMethod对象
         holder.mTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        String url = "https://static.baydn.com/media/media_store/image/f1672263006c6e28bb9dee7652fa4cf6.jpg";
+        /*String url = "https://static.baydn.com/media/media_store/image/f1672263006c6e28bb9dee7652fa4cf6.jpg";
         Glide.with(holder.itemView.getContext())
                 .load(url)
                 .into(holder.mTextView.getTarget());
-
+*/
     }
 
     @Override
