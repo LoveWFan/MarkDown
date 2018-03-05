@@ -1,9 +1,15 @@
 package wangle.com.markdown.display;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.AlignmentSpan;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +25,7 @@ import java.util.List;
 
 import wangle.com.markdown.R;
 import wangle.com.markdown.parser.style.image.MyAppCompatTextView;
+import wangle.com.markdown.util.DeviceUtils;
 
 /**
  * item显示适配器
@@ -69,14 +76,34 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
 
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            setImageSpan(holder,resource);
                             return false;
                         }
                     })
-                    .into(holder.mTextView.getTarget());
+                    .preload();
         }
 
     }
 
+
+    @SuppressLint("NewApi")
+    public void setImageSpan(ViewHolder holder,GlideDrawable resource) {
+        int w = DeviceUtils.SCREEN_WIDTH_PIXELS;
+        int hh=resource.getIntrinsicHeight();
+        int ww=resource.getIntrinsicWidth() ;
+        int high=hh*(w-50)/ww;
+        Rect rect = new Rect(0, 20,w,high);
+        resource.setBounds(rect);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(holder.mTextView.getText());
+        ImageSpan imageSpan = new ImageSpan(resource,ImageSpan.ALIGN_BASELINE);
+        spannableStringBuilder.setSpan(imageSpan,0,spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.append(holder.mTextView.getText());
+        spannableStringBuilder.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        holder.mTextView.setText(spannableStringBuilder);
+        if (holder.mProgressBar != null){
+            holder.mProgressBar.setVisibility(View.GONE);
+        }
+    }
     @Override
     public int getItemCount() {
         return mData==null?0:mData.size();
