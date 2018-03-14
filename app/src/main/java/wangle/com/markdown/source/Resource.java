@@ -11,13 +11,13 @@ import java.io.InputStream;
 /**
  * 资源类，目前是从raw目录下读取md文件
  */
-public class Resource{
-    public static InputStream getResource(Context context,int resId) {
+public class Resource {
+    public static InputStream getResource(Context context, int resId) {
         final InputStream stream = context.getResources().openRawResource(resId);
         return stream;
     }
 
-    public static InputStream getResource(Context context,String filePath) {
+    public static InputStream getResource(Context context, String filePath) {
         return null;
     }
 }

@@ -5,9 +5,9 @@ import android.text.SpannableStringBuilder;
 /**
  * Created by 忘了12138 on 2018/3/1.
  */
+
 /**
  * 代表每一行文本
- *
  */
 public class Line {
 

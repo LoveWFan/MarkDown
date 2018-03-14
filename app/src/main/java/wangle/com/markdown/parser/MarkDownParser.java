@@ -25,6 +25,7 @@ public class MarkDownParser {
     private BufferedReader mBufferedReader;
     //解析md文件 标签 的实现类
     private ParseTagImpl mParseTagImpl;
+
     MarkDownParser(BufferedReader mBufferedReader) {
         this.mBufferedReader = mBufferedReader;
         this.mParseTagImpl = new ParseTagImpl();
@@ -40,6 +41,7 @@ public class MarkDownParser {
 
     /**
      * 解析markdown文本并返回数据
+     *
      * @param inputStream 输入流
      * @return 富文本列表
      */
@@ -54,7 +56,8 @@ public class MarkDownParser {
     }
 
     /**
-     *收集 String -> spannable
+     * 收集 String -> spannable
+     *
      * @return
      * @throws IOException
      */
@@ -65,8 +68,8 @@ public class MarkDownParser {
 
     private List<Spannable> parse(List<Line> lineList) throws IOException {
         List<Spannable> spannableList = new ArrayList<>();
-        for (Line line : lineList){
-            if(mParseTagImpl.parseLine(line)){
+        for (Line line : lineList) {
+            if (mParseTagImpl.parseLine(line)) {
                 Spannable spannable = parseStyle(line);
                 spannableList.add(spannable);
             }
@@ -77,6 +80,7 @@ public class MarkDownParser {
 
     /**
      * 解析每一行的格式
+     *
      * @param line 代表每一行
      * @return Spannable供TextView显示
      */
@@ -86,16 +90,17 @@ public class MarkDownParser {
 
     /**
      * 读取md文件，收集每一行的信息
+     *
      * @return 包含每一行信息的列表
      * @throws IOException
      */
-    private List<Line> collect() throws IOException{
+    private List<Line> collect() throws IOException {
         String lineSource;
-        int lintCount=0;
+        int lintCount = 0;
         List<Line> lineList = new ArrayList<>();
 
-        int maxLineCount = DeviceUtils.SCREEN_HEIGHT_PIXELS-DeviceUtils.STATUSBAR_HEIGHT_PIXELS / DeviceUtils.FONT_HEIGHT_PIXELS;
-        while ((lineSource = mBufferedReader.readLine()) != null  && lintCount< maxLineCount) {
+        int maxLineCount = DeviceUtils.SCREEN_HEIGHT_PIXELS - DeviceUtils.STATUSBAR_HEIGHT_PIXELS / DeviceUtils.FONT_HEIGHT_PIXELS;
+        while ((lineSource = mBufferedReader.readLine()) != null && lintCount < maxLineCount) {
             Line l = new Line(lineSource);
             lineList.add(l);
         }

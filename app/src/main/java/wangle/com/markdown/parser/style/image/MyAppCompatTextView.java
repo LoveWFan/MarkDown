@@ -59,18 +59,18 @@ public class MyAppCompatTextView extends AppCompatTextView {
     @SuppressLint("NewApi")
     public void setImageSpan(GlideDrawable resource) {
         int w = DeviceUtils.SCREEN_WIDTH_PIXELS;
-        int hh=resource.getIntrinsicHeight();
-        int ww=resource.getIntrinsicWidth() ;
-        int high=hh*(w-50)/ww;
-        Rect rect = new Rect(0, 20,w,high);
+        int hh = resource.getIntrinsicHeight();
+        int ww = resource.getIntrinsicWidth();
+        int high = hh * (w - 50) / ww;
+        Rect rect = new Rect(0, 20, w, high);
         resource.setBounds(rect);
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(getText());
-        ImageSpan imageSpan = new ImageSpan(resource,ImageSpan.ALIGN_BASELINE);
-        spannableStringBuilder.setSpan(imageSpan,0,spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        ImageSpan imageSpan = new ImageSpan(resource, ImageSpan.ALIGN_BASELINE);
+        spannableStringBuilder.setSpan(imageSpan, 0, spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableStringBuilder.append(getText());
         spannableStringBuilder.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         setText(spannableStringBuilder);
-        if (mProgressBar != null){
+        if (mProgressBar != null) {
             mProgressBar.setVisibility(GONE);
         }
     }

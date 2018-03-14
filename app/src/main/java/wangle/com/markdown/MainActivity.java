@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0,0x1,Menu.NONE,"Sample");
-        menu.add(0,0x2,Menu.NONE,"从文件管理器");
+        menu.add(0, 0x1, Menu.NONE, "Sample");
+        menu.add(0, 0x2, Menu.NONE, "从文件管理器");
         return true;
     }
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         1);
-            }else{
+            } else {
                 //
                 getInputStreamFromFile();
             }
@@ -115,11 +115,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String path;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-            if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
+            if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
                 path = uri.getPath();
                 getInputStream();
 
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     public void getInputStream() {
         try {
             mSpannableList = MarkDownParser.fromMarkdown(new FileInputStream(path));
@@ -148,9 +150,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String getRealPathFromURI(Uri contentUri) {
         String res = null;
-        String[] proj = { MediaStore.Images.Media.DATA };
+        String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        if(null!=cursor&&cursor.moveToFirst()){;
+        if (null != cursor && cursor.moveToFirst()) {
+            ;
             int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             res = cursor.getString(columnIndex);
             cursor.close();

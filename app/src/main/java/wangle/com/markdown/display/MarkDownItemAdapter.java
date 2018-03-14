@@ -34,9 +34,11 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
 
     private final Context mContext;
     private List<Spannable> mData;
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private MyAppCompatTextView mTextView;
         private ProgressBar mProgressBar;
+
         public ViewHolder(View view) {
             super(view);
             mTextView = view.findViewById(R.id.textView);
@@ -51,7 +53,7 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_item_layout,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -62,7 +64,7 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
         holder.mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         //自定义Glide ViewTarget 实现ImageSpan后台线程填充
         ImageSpan[] imageSpans = mData.get(position).getSpans(0, mData.get(position).length(), ImageSpan.class);
-        for (ImageSpan imageSpan : imageSpans){
+        for (ImageSpan imageSpan : imageSpans) {
             holder.mProgressBar.setVisibility(View.VISIBLE);
             holder.mTextView.setProgressBar(holder.mProgressBar);
             Glide.with(holder.itemView.getContext())
@@ -76,7 +78,7 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
 
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            setImageSpan(holder,resource);
+                            setImageSpan(holder, resource);
                             return false;
                         }
                     })
@@ -87,26 +89,27 @@ public class MarkDownItemAdapter extends RecyclerView.Adapter<MarkDownItemAdapte
 
 
     @SuppressLint("NewApi")
-    public void setImageSpan(ViewHolder holder,GlideDrawable resource) {
+    public void setImageSpan(ViewHolder holder, GlideDrawable resource) {
         int w = DeviceUtils.SCREEN_WIDTH_PIXELS;
-        int hh=resource.getIntrinsicHeight();
-        int ww=resource.getIntrinsicWidth() ;
-        int high=hh*(w-50)/ww;
-        Rect rect = new Rect(0, 20,w,high);
+        int hh = resource.getIntrinsicHeight();
+        int ww = resource.getIntrinsicWidth();
+        int high = hh * (w - 50) / ww;
+        Rect rect = new Rect(0, 20, w, high);
         resource.setBounds(rect);
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(holder.mTextView.getText());
-        ImageSpan imageSpan = new ImageSpan(resource,ImageSpan.ALIGN_BASELINE);
-        spannableStringBuilder.setSpan(imageSpan,0,spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        ImageSpan imageSpan = new ImageSpan(resource, ImageSpan.ALIGN_BASELINE);
+        spannableStringBuilder.setSpan(imageSpan, 0, spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableStringBuilder.append(holder.mTextView.getText());
         spannableStringBuilder.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.mTextView.setText(spannableStringBuilder);
-        if (holder.mProgressBar != null){
+        if (holder.mProgressBar != null) {
             holder.mProgressBar.setVisibility(View.GONE);
         }
     }
+
     @Override
     public int getItemCount() {
-        return mData==null?0:mData.size();
+        return mData == null ? 0 : mData.size();
     }
 
 }
